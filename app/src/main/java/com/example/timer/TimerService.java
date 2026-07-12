@@ -96,6 +96,13 @@ public class TimerService extends Service {
 
         startInForeground();
         startRinging();
+        // Bring up the full-screen ring UI immediately. The notification's
+        // full-screen intent only auto-launches when the screen is locked/off;
+        // when the phone is unlocked and in use the system downgrades it to a
+        // heads-up notification, so we launch the activity ourselves to show the
+        // Stop screen in every case. (Needs the "Display over other apps"
+        // permission to be allowed from the background while unlocked.)
+        launchRingScreen();
         // Let a power-button press (screen off) stop the timer.
         registerScreenOff();
         // Give up ringing after a minute if the user never confirms it.
@@ -134,10 +141,8 @@ public class TimerService extends Service {
         channel.setSound(null, null);
         nm.createNotificationChannel(channel);
 
-        Intent ring = new Intent(this, TimerRingActivity.class);
-        ring.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent fullScreen = PendingIntent.getActivity(
-                this, 0, ring,
+                this, 0, ringIntent(),
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -156,6 +161,28 @@ public class TimerService extends Service {
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
         } else {
             startForeground(NOTIFICATION_ID, notification);
+        }
+    }
+
+    /** Intent that opens the full-screen ring UI. */
+    private Intent ringIntent() {
+        Intent ring = new Intent(this, TimerRingActivity.class);
+        ring.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        return ring;
+    }
+
+    /**
+     * Directly opens {@link TimerRingActivity} so the Stop screen shows full-screen
+     * even while the phone is unlocked (when the full-screen intent alone would only
+     * raise a heads-up notification). Harmless if the background launch is blocked:
+     * the full-screen intent / heads-up notification still covers that case.
+     */
+    private void launchRingScreen() {
+        try {
+            startActivity(ringIntent());
+        } catch (RuntimeException ignored) {
+            // Background activity launch was refused (e.g. overlay permission not
+            // granted); the notification's full-screen intent still handles it.
         }
     }
 

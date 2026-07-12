@@ -43,6 +43,7 @@ public class MainActivity extends BaseActivity {
     /** Prefs for one-off UI state (kept separate from the timer data). */
     private static final String UI_PREFS = "ui_prefs";
     private static final String KEY_RELIABILITY_HINT_SHOWN = "reliability_hint_shown";
+    private static final String KEY_OVERLAY_PROMPT_SHOWN = "overlay_prompt_shown";
 
     /** How often the running-countdown label is refreshed (ms). */
     private static final long REFRESH_INTERVAL_MS = 1_000L;
@@ -116,6 +117,7 @@ public class MainActivity extends BaseActivity {
         TimerScheduler.setMinutes(this, minutes);
         TimerScheduler.start(this, minutes);
         maybeShowReliabilityHint();
+        maybeRequestOverlayPermission();
         syncUiToState();
     }
 
@@ -184,6 +186,44 @@ public class MainActivity extends BaseActivity {
                 .setPositiveButton(R.string.hint_open_settings, (dialog, which) -> openAppSettings())
                 .setNegativeButton(R.string.hint_dismiss, null)
                 .show();
+    }
+
+    /**
+     * The first time a timer is started, ask (once) for the "Display over other
+     * apps" permission. It lets {@link TimerService} open the full-screen ring
+     * screen directly even while the phone is unlocked and in use — without it the
+     * system only raises a heads-up notification the user must tap. Skipped if the
+     * permission is already granted; the ring still works over the lock screen
+     * regardless via the notification's full-screen intent.
+     */
+    private void maybeRequestOverlayPermission() {
+        if (Settings.canDrawOverlays(this)) {
+            return;
+        }
+        SharedPreferences prefs = getSharedPreferences(UI_PREFS, MODE_PRIVATE);
+        if (prefs.getBoolean(KEY_OVERLAY_PROMPT_SHOWN, false)) {
+            return;
+        }
+        prefs.edit().putBoolean(KEY_OVERLAY_PROMPT_SHOWN, true).apply();
+
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.overlay_title)
+                .setMessage(R.string.overlay_message)
+                .setPositiveButton(R.string.overlay_open_settings, (dialog, which) -> openOverlaySettings())
+                .setNegativeButton(R.string.overlay_dismiss, null)
+                .show();
+    }
+
+    /** Opens the system screen where the user grants "Display over other apps". */
+    private void openOverlaySettings() {
+        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                Uri.parse("package:" + getPackageName()));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        try {
+            startActivity(intent);
+        } catch (Exception ignored) {
+            // No settings activity to handle it; nothing else we can do.
+        }
     }
 
     /** Opens this app's system settings screen (Autostart / battery / permissions). */

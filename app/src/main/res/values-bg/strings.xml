@@ -21,4 +21,10 @@
     <string name="hint_message">На някои телефони (Xiaomi, realme и други) системата може да спре приложението, когато е затворено. За да звъни хронометърът надеждно, разрешете „Автостартиране“ за това приложение и изключете оптимизацията на батерията за него.\n\nДа отворим ли настройките на приложението, за да ги проверите сега?</string>
     <string name="hint_open_settings">Отвори настройките</string>
     <string name="hint_dismiss">Разбрах</string>
+
+    <!-- One-time prompt to allow showing the full-screen ring over other apps. -->
+    <string name="overlay_title">Покажи хронометъра на цял екран</string>
+    <string name="overlay_message">За да се показва екранът със „Стоп“ на цял екран, когато времето изтече — дори докато ползвате телефона — разрешете на приложението „Показване върху други приложения“.\n\nДа отворим ли тази настройка сега?</string>
+    <string name="overlay_open_settings">Отвори настройката</string>
+    <string name="overlay_dismiss">Не сега</string>
 </resources>

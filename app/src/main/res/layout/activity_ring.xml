@@ -19,6 +19,9 @@
         android:layout_marginTop="48dp"
         android:paddingStart="48dp"
         android:paddingEnd="48dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="24dp"
+        android:textSize="32sp"
         android:text="@string/stop" />
 
 </LinearLayout>

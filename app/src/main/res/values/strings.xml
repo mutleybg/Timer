@@ -27,4 +27,10 @@
     <string name="hint_message">On some phones (Xiaomi, realme and others) the system can stop the app when it is closed. For the timer to ring reliably, allow \"Autostart\" for this app and turn off battery optimization for it.\n\nOpen the app settings to check these now?</string>
     <string name="hint_open_settings">Open settings</string>
     <string name="hint_dismiss">Got it</string>
+
+    <!-- One-time prompt to allow showing the full-screen ring over other apps. -->
+    <string name="overlay_title">Show the timer full-screen</string>
+    <string name="overlay_message">To show the Stop screen full-screen when the time is up — even while you are using the phone — allow this app to \"Display over other apps\".\n\nOpen that setting now?</string>
+    <string name="overlay_open_settings">Open setting</string>
+    <string name="overlay_dismiss">Not now</string>
 </resources>

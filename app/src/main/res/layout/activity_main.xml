@@ -64,8 +64,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp"
+                android:paddingStart="64dp"
+                android:paddingEnd="64dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="24dp"
+                android:textSize="28sp"
                 android:text="@string/stop" />
 
         </LinearLayout>

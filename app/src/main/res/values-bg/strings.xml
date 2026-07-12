@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Хронометър</string>
+
+    <string name="timer_title">Хронометър</string>
+
+    <string name="label_minutes">Минути</string>
+    <string name="start">Старт</string>
+    <string name="stop">Стоп</string>
+    <string name="state_off">Хронометърът е изключен</string>
+    <!-- Countdown shown while the timer runs: minutes:seconds. -->
+    <string name="state_running">Оставащо време: %1$02d:%2$02d</string>
+
+    <string name="timer_channel_name">Хронометър</string>
+    <string name="timer_channel_desc">Показва изтеклия хронометър</string>
+
+    <string name="timer_finished">Времето изтече!</string>
+    <string name="notifications_denied">Известията са изключени; хронометърът може да не ви сигнализира.</string>
+    <string name="grant_exact_alarm">Разрешете точни аларми за това приложение, след което стартирайте хронометъра отново.</string>
+
+    <string name="hint_title">Надежден хронометър</string>
+    <string name="hint_message">На някои телефони (Xiaomi, realme и други) системата може да спре приложението, когато е затворено. За да звъни хронометърът надеждно, разрешете „Автостартиране“ за това приложение и изключете оптимизацията на батерията за него.\n\nДа отворим ли настройките на приложението, за да ги проверите сега?</string>
+    <string name="hint_open_settings">Отвори настройките</string>
+    <string name="hint_dismiss">Разбрах</string>
+</resources>

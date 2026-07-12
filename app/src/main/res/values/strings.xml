@@ -1,0 +1,30 @@
+<resources>
+    <!-- App name is kept as the Bulgarian brand name in every locale. -->
+    <string name="app_name">Хронометър</string>
+
+    <!-- On-screen title; the constant brand name, like app_name. -->
+    <string name="timer_title">Хронометър</string>
+
+    <!-- Main screen (English default; see values-bg for Bulgarian). -->
+    <string name="label_minutes">Minutes</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="state_off">Timer is off</string>
+    <!-- Countdown shown while the timer runs: minutes:seconds. -->
+    <string name="state_running">Time remaining: %1$02d:%2$02d</string>
+
+    <!-- Notification channel for the finished timer. -->
+    <string name="timer_channel_name">Timer</string>
+    <string name="timer_channel_desc">Shows the finished timer</string>
+
+    <!-- Ring screen + permission messages. -->
+    <string name="timer_finished">Time\'s up!</string>
+    <string name="notifications_denied">Notifications are disabled; the timer may not alert you.</string>
+    <string name="grant_exact_alarm">Please allow exact alarms for this app, then start the timer again.</string>
+
+    <!-- One-time reliability hint shown when the first timer is started. -->
+    <string name="hint_title">Make the timer reliable</string>
+    <string name="hint_message">On some phones (Xiaomi, realme and others) the system can stop the app when it is closed. For the timer to ring reliably, allow \"Autostart\" for this app and turn off battery optimization for it.\n\nOpen the app settings to check these now?</string>
+    <string name="hint_open_settings">Open settings</string>
+    <string name="hint_dismiss">Got it</string>
+</resources>
